@@ -1,3 +1,5 @@
 key.txt
 .vscode
-
+book-cryptocurrency-master
+*.xlsx
+__pycache__

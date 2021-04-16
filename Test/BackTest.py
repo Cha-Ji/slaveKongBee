@@ -3,9 +3,7 @@ import numpy as np
 from pandas import DataFrame
 
 tickers = pyupbit.get_tickers(fiat="KRW")
-
-maxNode = 0
-minNode = 100
+print(len(tickers))
 result = []
 
 for ticker in tickers:
@@ -27,20 +25,16 @@ for ticker in tickers:
     df['dd'] = (df['hpr'].cummax() - df['hpr']) / df['hpr'].cummax() * 100
 
     result.append([ticker, df['dd'].max(), df['hpr'][-2]])
+print(len(result))
 
 
 def printResult():
-
     for node in sorted(result, key=lambda x: x[2]):
         if node[2] > 1:
-            print("[", node[0], "형님 ]: {0:0.2f}".format(node[2]), "배가 되었다구 ~")
+            print("[", node[0], "형님]: {0:0.2f}".format(node[2]), "배가 되었다구 ~")
         else:
-            print("[", node[0], ".. ]")
-
-        # print("  MDD: {0:0.2f}".format(
-        #     df['dd'].max()), "% (최대 누적 손실 낙폭)")  # 최대 누적 손실
-
-    # df.to_excel("Test/" + ticker + ".xlsx")
+            print("[", node[0], ".. ]: {0:0.2f}".format(node[2]), "배가 되었다구 ~")
+        df.to_excel("Test/excel/" + ticker + ".xlsx")
 
 
 printResult()
