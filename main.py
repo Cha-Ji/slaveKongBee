@@ -5,19 +5,20 @@ import datetime
 import Model.Price
 import Model.Key
 import Controller.Trade
-import indicate
 
 
 def setDate():
+    # today 9'o clock
     now = datetime.datetime.now() - datetime.timedelta(hours=9)
 
+    # tommorw 9'o clock
     mid = datetime.datetime(now.year, now.month,
                             now.day) + datetime.timedelta(1)
     return now, mid
 
 
 def sellSignal(now, mid):
-    # 09시 일괄 판매
+    # if tommorw 9'o clock
     if mid < now < mid + datetime.timedelta(seconds=10):
         return True
 
@@ -25,12 +26,11 @@ def sellSignal(now, mid):
 
 
 def buySignal(current_price, target_price, ma5):
-
-    # 변동성을 돌파하지 못했다면
+    # target = (yesterday[high] - yesterday[low]) * 0.5
     if target_price > current_price:
         return False
 
-    # 상승장이 아니라면
+    # ma5 = moving average in 5 days
     if ma5 > current_price:
         return False
 
@@ -38,38 +38,71 @@ def buySignal(current_price, target_price, ma5):
 
 
 def init():
-    ticker = indicate.getSignalTicker()
+    # --------show balance--------------------
+    # given: key, ticker
+    # when: init
+    # then: print balance
+    ticker = "KRW-BTC"
     upbit = Model.Key.getKey()
     for b in upbit.get_balances():
         print(b['currency'], ": ", b['balance'])
-    print(*upbit.get_balances())
+    # ---------------------------------------
 
+    # -------buy indicator--------------------
+    # given: yesterday price list
+    # when: call get target
+    # then: get ma5 & larry-price
     target_price = Model.Price.getTargetPrice(ticker)
     ma5 = Model.Price.getYesterdayMa5(ticker)
-    now, mid = setDate()
+    # ---------------------------------------
 
+    # -------sell indicator------------------
+    # given: datetime
+    # when: init
+    # then: get now and tommorow
+    now, mid = setDate()
+    # ---------------------------------------
+
+    # ----------init today result-------------
+    buy = 0
+    # ---------------------------------------
+
+    # ---------------------------------------
+    # ------check signal every seconds-------
     while True:
         try:
             now = datetime.datetime.now() - datetime.timedelta(hours=9)
             current_price = pyupbit.get_current_price(ticker)
 
-            # update date & sell
+            # ---------------sell----------------
+            # given: datetime
+            # when: now + 1day + 9hours
+            # then: sell & update(datetime, buy_signal)
+            #  and: print(krw)
             if sellSignal(now, mid):
                 target_price = Model.Price.getTargetPrice(ticker)
                 ma5 = Model.Price.getYesterdayMa5(ticker)
                 mid = setDate()[1]
                 Controller.Trade.sell_crypto_currency(upbit)
-                ticker = indicate.getSignalTicker()
+                print("잔고:", upbit.get_balance("KRW"))
+                print("오늘의 구매내역:", buy)
+            # ---------------------------------------
 
-            # 매수 조건
-            if buySignal(current_price, target_price, ma5):
-                Controller.Trade.buy_crypto_currency(upbit, ticker)
+            # -------------buy---------------
+            # given: current_price, target_price, ma5
+            # when: current_price > max() & krw > 10000
+            # then: buy_crypto_currency(all-in)
+            if buySignal(
+                current_price, target_price, ma5
+            ) and (
+                upbit.get_balance("KRW") > 10000
+            ):
+                buy = Controller.Trade.buy_crypto_currency(upbit, ticker)
+            # ---------------------------------------
         except:
             print('에러')
-
         time.sleep(1)
-        print("now: ", current_price, "target: ",
-              max(ma5, target_price), "time: ", now.month, "월", now.day, "일", now.hour, "시", now.minute, "분")
+    # ---------------------------------------
 
 
 init()
