@@ -8,6 +8,11 @@ import Controller.Trade
 
 
 def setDate():
+    # given: datetime module
+    # when: in tommorw
+    #   or: init program
+    # then: set now, mid(tommorw)
+
     # today 9'o clock
     now = datetime.datetime.now() - datetime.timedelta(hours=9)
 
@@ -18,6 +23,11 @@ def setDate():
 
 
 def sellSignal(now, mid):
+    # given: signal, date
+    # when: catch signal
+    #  and: reset today
+    # then: return True
+
     # if tommorw 9'o clock
     if mid < now < mid + datetime.timedelta(seconds=10):
         return True
@@ -26,6 +36,10 @@ def sellSignal(now, mid):
 
 
 def buySignal(current_price, target_price, ma5):
+    # given: signal
+    # when: catch signal
+    # then: return True
+
     # target = (yesterday[high] - yesterday[low]) * 0.5
     if target_price > current_price:
         return False

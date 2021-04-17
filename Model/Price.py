@@ -2,6 +2,10 @@ import pyupbit
 
 
 def getTargetPrice(ticker):
+    # given: upbit key
+    #  and: yesterday[close, high, low]
+    # when: 9'o clock
+    # then: return target price
     df = pyupbit.get_ohlcv(ticker)
     yesterday = df.iloc[-2]  # yesterday data
 
@@ -12,10 +16,12 @@ def getTargetPrice(ticker):
 
     return target
 
-# 5일 이동 평균
-
 
 def getYesterdayMa5(ticker):
+    # given: upbit key
+    #  and: past 5 days data
+    # when: 9'o clock
+    # then: return moving average price
     df = pyupbit.get_ohlcv(ticker)
     close = df['close']
     ma = close.rolling(window=5).mean()
