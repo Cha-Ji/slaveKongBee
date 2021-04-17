@@ -1,6 +1,6 @@
 import sys
 import time
-import pyupbit
+import pybithumb
 from PyQt5 import uic
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtWidgets import QTableWidgetItem, QProgressBar
@@ -17,7 +17,7 @@ class OrderbookWorker(QThread):
 
     def run(self):
         while self.alive:
-            data = pyupbit.get_orderbook(self.ticker)
+            data = pybithumb.get_orderbook(self.ticker, limit=10)
             time.sleep(0.05)
             if data != None:
                 self.dataSent.emit(data)
@@ -27,7 +27,7 @@ class OrderbookWorker(QThread):
 
 
 class OrderbookWidget(QWidget):
-    def __init__(self, parent=None, ticker="KRW-BTC"):
+    def __init__(self, parent=None, ticker="BTC"):
         super().__init__(parent)
         uic.loadUi("View/resource/orderbook.ui", self)
         self.ticker = ticker
