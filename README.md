@@ -1,9 +1,12 @@
 # Upbit Auto Trade
 
+## Install
+
 ```python
 pip install openpyxl
 pip install pyupbit
-pip install pyqt5
+pip install PyQt5
+pip install PyQtChart
 ```
 
 ## How To Run
@@ -16,4 +19,13 @@ pip install pyqt5
     qwer1234
 - ```
     :wq!
-- set ticker in main.py
+- set ticker in main.py (default = "KRW-BTC")
+
+## Release
+
+- ver 0.1
+  - given: past data
+  - when: catch 2 buy signal
+  - then: buy BTC (all-in)
+  - when: tommorw 9'o clock
+  - then: sell all
