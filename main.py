@@ -9,9 +9,10 @@ import indicate
 
 
 def setDate():
-    now = datetime.datetime.now()
+    now = datetime.datetime.now() - datetime.timedelta(hours=9)
+
     mid = datetime.datetime(now.year, now.month,
-                            now.day) + datetime.timedelta(hours=33)
+                            now.day) + datetime.timedelta(1)
     return now, mid
 
 
@@ -49,7 +50,7 @@ def init():
 
     while True:
         try:
-            now = datetime.datetime.now()
+            now = datetime.datetime.now() - datetime.timedelta(hours=9)
             current_price = pyupbit.get_current_price(ticker)
 
             # update date & sell
