@@ -1,5 +1,4 @@
 # Upbit Auto Trade
-
 ## Install
 
 ```python
@@ -29,3 +28,12 @@ pip install PyQtChart
   - then: buy BTC (all-in)
   - when: tommorw 9'o clock
   - then: sell all
+
+## Contack
+
+chajiwon100785@gmail.com
+
+## Copyright 
+
+[출처 소스코드]https://github.com/sharebook-kr/book-cryptocurrency
+[*파이썬을 이용한 비트코인 자동매매 (개정판)*. 조대표 외 1명]https://wikidocs.net/book/1665
