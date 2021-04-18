@@ -68,6 +68,9 @@ def init():
     # then: get ma5 & larry-price
     target_price = Model.Price.getTargetPrice(ticker)
     ma5 = Model.Price.getYesterdayMa5(ticker)
+    print("larry:", target_price)
+    print("ma5:", ma5)
+    print("current:", pyupbit.get_current_price(ticker))
     # ---------------------------------------
 
     # -------sell indicator------------------
