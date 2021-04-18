@@ -30,7 +30,7 @@ def sell_crypto_currency(upbit):
         print("전량 매도")
         for ticker in balences[1:]:
             unit = upbit.get_balance(ticker['balance'])
-            print(upbit.sell_market_order(ticker, unit))
+            print(upbit.sell_market_order(ticker['currency'], unit))
 
     # --------------지정가 매도-----------------------
     # unit = upbit.get_balance(ticker)  # 코인 잔고
