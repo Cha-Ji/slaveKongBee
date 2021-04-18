@@ -103,13 +103,14 @@ def init():
                 Controller.Trade.sell_crypto_currency(upbit)
                 print("잔고:", upbit.get_balance("KRW"))
                 print("오늘의 구매내역:", buy)
+
             # ---------------------------------------
 
             # -------------buy---------------
             # given: current_price, target_price, ma5
             # when: current_price > max() & krw > 10000
             # then: buy_crypto_currency(all-in)
-            if buySignal(
+            elif buySignal(
                 current_price, target_price, ma5
             ) and (
                 upbit.get_balance("KRW") > 10000
