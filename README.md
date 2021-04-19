@@ -22,7 +22,7 @@ pip install PyQtChart
 
 ## Release
 
-- ver 0.1
+- ver 0.2116(2021. 16week)
   - given: past data
   - when: catch 2 buy signal
   - then: buy BTC (all-in)
