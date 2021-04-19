@@ -22,7 +22,7 @@ pip install PyQtChart
 
 ## Release
 
-- ver 0.1
+- ver 0.2116(2021. 16week)
   - given: past data
   - when: catch 2 buy signal
   - then: buy BTC (all-in)
@@ -35,5 +35,5 @@ chajiwon100785@gmail.com
 
 ## Copyright 
 
-[출처 소스코드]https://github.com/sharebook-kr/book-cryptocurrency
-[*파이썬을 이용한 비트코인 자동매매 (개정판)*. 조대표 외 1명]https://wikidocs.net/book/1665
+[출처 소스코드](https://github.com/sharebook-kr/book-cryptocurrency)
+[*파이썬을 이용한 비트코인 자동매매 (개정판)*. 조대표 외 1명](https://wikidocs.net/book/1665)
